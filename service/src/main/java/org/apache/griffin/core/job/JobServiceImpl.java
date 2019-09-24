@@ -206,6 +206,13 @@ public class JobServiceImpl implements JobService {
         return job;
     }
 
+    /**
+     * 操作job任务数据信息
+     * @param action
+     * @param job
+     * @param op
+     * @throws Exception
+     */
     private void doAction(String action, AbstractJob job, JobOperator op)
         throws Exception {
         switch (action) {

@@ -23,6 +23,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * 产品版本接口
+ */
 @RestController
 @RequestMapping("/api/v1")
 public class GriffinInfoController {

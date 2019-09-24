@@ -24,7 +24,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("griffinBatchJob")
+@DiscriminatorValue("griffinBatchJob") //用来表示该对象是何种对象的,即区分器
 public class BatchJob extends AbstractJob {
     private static final long serialVersionUID = -1114269860236729008L;
 

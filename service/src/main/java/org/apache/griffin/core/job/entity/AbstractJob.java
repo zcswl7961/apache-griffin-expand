@@ -53,6 +53,14 @@ import org.apache.griffin.core.util.JsonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
+/**
+ * Hibernate 继承策略中共三种，
+ * 一种是公用一张表，  @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+ * 一种是每个类一张表，表里面存储子类信息和父类信息，
+ * 一种是通过表连接的方式，每个类都有一张表，但是子类对应的表只保存自己的信息，
+ *     父类对应的表保存父类的信息，它们之间通过子类表和父类表的关联来获取所有的信息。
+ */
 @Entity
 @Table(name = "job")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -65,7 +73,7 @@ import org.slf4j.LoggerFactory;
         @JsonSubTypes.Type(
                 value = VirtualJob.class,
                 name = "virtual")})
-@DiscriminatorColumn(name = "type")
+@DiscriminatorColumn(name = "type") //标识区分不同的对象的字段名
 public abstract class AbstractJob extends AbstractAuditableEntity {
     private static final long serialVersionUID = 7569493377868453677L;
 

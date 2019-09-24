@@ -42,6 +42,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
+
+/**
+ * 基础参数信息配置，包含基础application.properties中的配置信息
+ * 加载内部：env_batch.json
+ *         env_streaming.json
+ *         quartz.properties
+ */
 @Configuration
 public class PropertiesConfig {
 
@@ -65,6 +72,12 @@ public class PropertiesConfig {
         this.envLocation = envLocation;
     }
 
+    /**
+     * 基础参数配置，存储于env_batch.json中
+     * hdfs
+     * elasticsearch 配置
+     * @throws IOException
+     */
     @PostConstruct
     public void init() throws IOException {
         String batchName = "env_batch.json";
