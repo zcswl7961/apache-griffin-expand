@@ -56,6 +56,12 @@ public class JobController {
         return jobService.getAliveJobs(type);
     }
 
+    /**
+     * 增加job作业的操作
+     * @param job
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "/jobs", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public AbstractJob addJob(@RequestBody AbstractJob job) throws Exception {

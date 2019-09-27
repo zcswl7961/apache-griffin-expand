@@ -398,6 +398,13 @@ public class JobServiceImpl implements JobService {
         return genJobState(job, null);
     }
 
+    /**
+     * 创建JobDetail数据
+     * @param tk
+     * @param job
+     * @param type
+     * @throws Exception
+     */
     void addJob(TriggerKey tk, AbstractJob job, ProcessType type) throws
         Exception {
         JobDetail jobDetail = addJobDetail(tk, job);

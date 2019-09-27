@@ -210,6 +210,9 @@ public class SparkSubmitJob implements Job {
     private void setLivyArgs() throws IOException {
         List<String> args = new ArrayList<>();
         args.add(genEnv());
+        /**
+         * 形成对应的特性对比的json信息
+         */
         String measureJson = JsonUtil.toJsonWithFormat(measure);
         // to fix livy bug: character ` will be ignored by livy
         String finalMeasureJson = escapeCharacter(measureJson, "\\`");

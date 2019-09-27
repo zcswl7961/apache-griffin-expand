@@ -359,6 +359,12 @@ public class JobInstance implements Job {
         return jobDetail;
     }
 
+    /**
+     * 设置measure数据
+     * @param jobDetail
+     * @param pJobName
+     * @throws IOException
+     */
     private void setJobDataMap(JobDetail jobDetail, String pJobName)
             throws IOException {
         JobDataMap dataMap = jobDetail.getJobDataMap();

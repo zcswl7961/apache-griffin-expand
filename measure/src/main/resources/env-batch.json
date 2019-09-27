@@ -16,7 +16,7 @@
     {
       "type": "HDFS",
       "config": {
-        "path": "hdfs://localhost/griffin/batch/persist",
+        "path": "hdfs://localhost:8020/griffin/batch/persist",
         "max.persist.lines": 10000,
         "max.lines.per.file": 10000
       }
