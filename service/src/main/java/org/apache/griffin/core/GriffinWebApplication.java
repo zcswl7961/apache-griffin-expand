@@ -27,7 +27,27 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-
+/**
+ * <p>
+ * 使用手册：
+ *      打包：
+ *          mvn clean
+ *          mvn -T2C install -DskipTests
+ *      重命名：
+ *          mv measure/target/measure-0.5.0-SNAPSHOT.jar $GRIFFIN_HOME/griffin-measure.jar
+ *          mv service/target/service-0.5.0-SNAPSHOT.jar $GRIFFIN_HOME/griffin-service.jar
+ *      发布到hadoop目录上(交由spark进行执行)：
+ *          hadoop fs -mkdir -p /griffin/persist
+ *          hadoop fs -mkdir /griffin/checkpoint
+ *          hadoop fs -put $GRIFFIN_HOME/griffin-measure.jar /griffin/
+ *      执行：
+ *          nohup java -jar $GRIFFIN_HOME/griffin-service.jar>$GRIFFIN_HOME/service.out 2>&1 &
+ *      查看日志：
+ *          tail -f $GRIFFIN_HOME/service.out
+ * </p>
+ * @author zhoucg
+ * @date 2019-09-21
+ */
 @SpringBootApplication
 @EnableScheduling
 public class GriffinWebApplication {
@@ -36,6 +56,11 @@ public class GriffinWebApplication {
 
     public static void main(String[] args) {
         LOGGER.info("application start");
+        /**
+         * 这个问题是为了处理在window环境下，调用hadoop winutils.exe路径找不到的错误
+         * java.io.IOException: Could not locate executable null\bin\winutils.exe in the Hadoop binaries.
+         */
+        System.setProperty("hadoop.home.dir", "D:\\hadoop-common-2.2.0-bin-master");
         SpringApplication.run(GriffinWebApplication.class, args);
     }
 

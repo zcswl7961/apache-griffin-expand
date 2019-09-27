@@ -90,7 +90,9 @@ public class SparkSubmitJob implements Job {
 
     @Override
     public void execute(JobExecutionContext context) {
+        LOGGER.info("[TEST],开始执行任务调度作业务操作");
         JobDetail jd = context.getJobDetail();
+        LOGGER.info("[TEXT] jobDetail:{}",jd.toString());
         try {
             initParam(jd);
             setLivyConf();
@@ -109,6 +111,7 @@ public class SparkSubmitJob implements Job {
         SimpleTrigger simpleTrigger = (SimpleTrigger) context.getTrigger();
         int repeatCount = simpleTrigger.getRepeatCount();
         int fireCount = simpleTrigger.getTimesTriggered();
+        LOGGER.info("repeatCount:{},fireCount:{}",repeatCount,fireCount);
         if (fireCount > repeatCount) {
             saveJobInstance(null, NOT_FOUND);
         }
@@ -156,6 +159,9 @@ public class SparkSubmitJob implements Job {
 
     private void initParam(JobDetail jd) throws IOException {
         mPredicates = new ArrayList<>();
+        LOGGER.info("[TEXT] 当前任务的执行周期predicateJobName：{}，predicts：{}，measure：{}",jd.getJobDataMap()
+                .getString(PREDICATE_JOB_NAME),jd.getJobDataMap().getString(MEASURE_KEY),
+                jd.getJobDataMap().getString(PREDICATES_KEY));
         jobInstance = jobInstanceRepo.findByPredicateName(jd.getJobDataMap()
                 .getString(PREDICATE_JOB_NAME));
         measure = toEntity(jd.getJobDataMap().getString(MEASURE_KEY),
@@ -207,7 +213,7 @@ public class SparkSubmitJob implements Job {
         String measureJson = JsonUtil.toJsonWithFormat(measure);
         // to fix livy bug: character ` will be ignored by livy
         String finalMeasureJson = escapeCharacter(measureJson, "\\`");
-        LOGGER.info(finalMeasureJson);
+        LOGGER.info("显示的最终结果:"+finalMeasureJson);
         args.add(finalMeasureJson);
         args.add("raw,raw");
         livyConfMap.put("args", args);
@@ -236,6 +242,7 @@ public class SparkSubmitJob implements Job {
             resultMap = toEntity(result, type);
         }
         setJobInstance(resultMap, state);
+        LOGGER.info("jobInstance:{}",jobInstance.toString());
         jobInstanceRepo.save(jobInstance);
     }
 

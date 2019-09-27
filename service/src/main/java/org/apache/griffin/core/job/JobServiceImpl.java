@@ -499,14 +499,19 @@ public class JobServiceImpl implements JobService {
         }
     }
 
+    /**
+     * 通过livy获取对应的spark任务的执行状态，更新本地库的任务执行状态 jobInstance
+     */
     @Scheduled(fixedDelayString = "${jobInstance.fixedDelay.in.milliseconds}")
     public void syncInstancesOfAllJobs() {
+        /*
         LivySessionStates.State[] states = {STARTING, NOT_STARTED, RECOVERING,
             IDLE, RUNNING, BUSY};
         List<JobInstanceBean> beans = instanceRepo.findByActiveState(states);
         for (JobInstanceBean jobInstance : beans) {
             syncInstancesOfJob(jobInstance);
         }
+        */
     }
 
     /**
@@ -526,6 +531,7 @@ public class JobServiceImpl implements JobService {
             };
         try {
             String resultStr = restTemplate.getForObject(uri, String.class);
+            LOGGER.info("[Text]更新job状态的时候出现的问题：resultStr："+resultStr);
             HashMap<String, Object> resultMap = JsonUtil.toEntity(resultStr,
                 type);
             setJobInstanceIdAndUri(instance, resultMap);
