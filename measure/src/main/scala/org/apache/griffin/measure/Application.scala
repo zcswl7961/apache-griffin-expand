@@ -31,6 +31,7 @@ import org.apache.griffin.measure.launch.streaming.StreamingDQApp
 
 /**
   * application entrance
+  * 数据指标计算的关键：关于Accuracy measuer:https://github.com/apache/griffin/blob/master/griffin-doc/measure/measures.md
   */
 object Application extends Loggable {
 
