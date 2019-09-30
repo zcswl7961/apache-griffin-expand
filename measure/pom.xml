@@ -53,6 +53,7 @@ under the License.
         <curator.version>2.10.0</curator.version>
         <scalamock.version>3.6.0</scalamock.version>
         <spark.testing.version>0.9.0</spark.testing.version>
+        <mysql.version>5.1.44</mysql.version>
     </properties>
 
     <dependencies>
@@ -181,6 +182,13 @@ under the License.
             <artifactId>spark-testing-base_${scala.binary.version}</artifactId>
             <version>${spark.version}_${spark.testing.version}</version>
             <!--<scope>test</scope>-->
+        </dependency>
+
+        <!--mysql driver,spark读取mysql数据 -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.version}</version>
         </dependency>
 
     </dependencies>

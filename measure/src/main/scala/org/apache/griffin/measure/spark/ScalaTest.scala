@@ -1,4 +1,4 @@
-package org.apache.griffin.measure
+package org.apache.griffin.measure.spark
 
 import scala.collection.mutable.ArrayBuffer
 import scala.util.control.Breaks._
@@ -8,7 +8,7 @@ import scala.util.control.Breaks._
  * zhoucg
  * 2019-09-29
  */
-object ZcsTest {
+object ScalaTest {
 
   def main(args: Array[String]): Unit = {
     var str:String = "zhoucg"
