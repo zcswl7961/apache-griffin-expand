@@ -36,7 +36,32 @@ import org.apache.griffin.measure.launch.streaming.StreamingDQApp
 object Application extends Loggable {
 
   def main(args: Array[String]): Unit = {
-    info(args.toString)
+    // info(args.toString)
+    val args = new Array[String](2)
+    args(0) = "{\n  \"spark\":{\n    \"log.level\":\"WARN\",\n    \"config\":{\n      \"spark" +
+      ".master\":\"local[*]\"\n    }\n  },\n  \"sinks\":[\n    {\n      \"type\":\"CONSOLE\",\n  " +
+      "    \"config\":{\n        \"max.log.lines\":10\n      }\n    },\n    {\n      " +
+      "\"type\":\"HDFS\",\n      \"config\":{\n        " +
+      "\"path\":\"hdfs://localhost:8020/griffin/batch/persist\",\n        \"max.persist" +
+      ".lines\":10000,\n        \"max.lines.per.file\":10000\n      }\n    },\n    {\n      " +
+      "\"type\":\"ELASTICSEARCH\",\n      \"config\":{\n        \"method\":\"post\",\n        " +
+      "\"api\":\"http://192.168.239.171:9200/griffin/accuracy\",\n        \"connection" +
+      ".timeout\":\"1m\",\n        \"retry\":10\n      }\n    }\n  ],\n  \"griffin" +
+      ".checkpoint\":[\n\n  ]\n}";
+    args(1) = "{\n  \"name\":\"accu_batch\",\n  \"process.type\":\"batch\",\n  \"data" +
+      ".sources\":[\n    {\n      \"name\":\"source\",\n      \"baseline\":true,\n      " +
+      "\"connectors\":[\n        {\n          \"type\":\"avro\",\n          \"version\":\"1.7\"," +
+      "\n          \"config\":{\n            \"file.name\":\"measure/src/test/resources/users_info_src" +
+      ".avro\"\n          }\n        }\n      ]\n    },\n    {\n      \"name\":\"target\",\n     " +
+      " \"connectors\":[\n        {\n          \"type\":\"avro\",\n          \"version\":\"1.7\"," +
+      "\n          \"config\":{\n            \"file.name\":\"measure/src/test/resources/users_info_target" +
+      ".avro\"\n          }\n        }\n      ]\n    }\n  ],\n  \"evaluate.rule\":{\n    " +
+      "\"rules\":[\n      {\n        \"dsl.type\":\"griffin-dsl\",\n        \"dq" +
+      ".type\":\"accuracy\",\n        \"out.dataframe.name\":\"accu\",\n        \"rule\":\"source" +
+      ".user_id = target.user_id AND upper(source.first_name) = upper(target.first_name) AND " +
+      "source.last_name = target.last_name AND source.address = target.address AND source.email =" +
+      " target.email AND source.phone = target.phone AND source.post_code = target.post_code\"\n " +
+      "     }\n    ]\n  },\n  \"sinks\":[\n    \"CONSOLE\",\n    \"ELASTICSEARCH\"\n  ]\n}";
     if (args.length < 2) {
       error("Usage: class <env-param> <dq-param>")
       sys.exit(-1)
@@ -75,6 +100,8 @@ object Application extends Loggable {
 
     startup
 
+    // 初始化griffin定时任务执行环境
+    // 具体代码见下个代码块，主要逻辑是创建sparkSession和注册griffin自定义的spark udf
     // dq app init
     dqApp.init match {
       case Success(_) =>

@@ -36,6 +36,7 @@ object DQJobBuilder {
     * @return       dq job
     */
   def buildDQJob(context: DQContext, evaluateRuleParam: EvaluateRuleParam): DQJob = {
+    // 获取对一个dsl的配置信息
     val ruleParams = evaluateRuleParam.getRules
     buildDQJob(context, ruleParams)
   }

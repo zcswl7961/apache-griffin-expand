@@ -1,36 +1,36 @@
 {
-  "spark": {
-    "log.level": "WARN",
-    "config": {
-      "spark.master": "local[*]"
+  "spark":{
+    "log.level":"WARN",
+    "config":{
+      "spark.master":"local[*]"
     }
   },
-
-  "sinks": [
+  "sinks":[
     {
-      "type": "CONSOLE",
-      "config": {
-        "max.log.lines": 10
+      "type":"CONSOLE",
+      "config":{
+        "max.log.lines":10
       }
     },
     {
-      "type": "HDFS",
-      "config": {
-        "path": "hdfs://localhost:8020/griffin/batch/persist",
-        "max.persist.lines": 10000,
-        "max.lines.per.file": 10000
+      "type":"HDFS",
+      "config":{
+        "path":"hdfs://localhost:8020/griffin/batch/persist",
+        "max.persist.lines":10000,
+        "max.lines.per.file":10000
       }
     },
     {
-      "type": "ELASTICSEARCH",
-      "config": {
-        "method": "post",
-        "api": "http://10.148.181.248:39200/griffin/accuracy",
-        "connection.timeout": "1m",
-        "retry": 10
+      "type":"ELASTICSEARCH",
+      "config":{
+        "method":"post",
+        "api":"http://192.168.239.171:9200/griffin/accuracy",
+        "connection.timeout":"1m",
+        "retry":10
       }
     }
   ],
+  "griffin.checkpoint":[
 
-  "griffin.checkpoint": []
+  ]
 }

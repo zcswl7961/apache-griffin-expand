@@ -62,25 +62,25 @@ under the License.
             <artifactId>scala-library</artifactId>
             <version>${scala.version}</version>
         </dependency>
-
+        <!--本地spark任务调试，去掉对应的scope -->
         <!--spark, spark streaming, spark hive-->
         <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-core_${scala.binary.version}</artifactId>
             <version>${spark.version}</version>
-            <scope>provided</scope>
+            <!--<scope>provided</scope>-->
         </dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-streaming_${scala.binary.version}</artifactId>
             <version>${spark.version}</version>
-            <scope>provided</scope>
+            <!--<scope>provided</scope>-->
         </dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-hive_${scala.binary.version}</artifactId>
             <version>${spark.version}</version>
-            <scope>provided</scope>
+            <!--<scope>provided</scope>-->
         </dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>
@@ -150,12 +150,13 @@ under the License.
             <version>${curator.version}</version>
         </dependency>
 
+        <!--本地spark任务调试，去掉对应的test -->
         <!--junit-->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
-            <scope>test</scope>
+            <!--<scope>test</scope>-->
         </dependency>
 
         <!--scala test-->
@@ -163,7 +164,7 @@ under the License.
             <groupId>org.scalatest</groupId>
             <artifactId>scalatest_${scala.binary.version}</artifactId>
             <version>${scalatest.version}</version>
-            <scope>test</scope>
+            <!--<scope>test</scope>-->
         </dependency>
 
         <!--scala mock-->
@@ -171,7 +172,7 @@ under the License.
             <groupId>org.scalamock</groupId>
             <artifactId>scalamock-scalatest-support_${scala.binary.version}</artifactId>
             <version>${scalamock.version}</version>
-            <scope>test</scope>
+            <!--<scope>test</scope>-->
         </dependency>
 
         <!--spark testing-->
@@ -179,7 +180,7 @@ under the License.
             <groupId>com.holdenkarau</groupId>
             <artifactId>spark-testing-base_${scala.binary.version}</artifactId>
             <version>${spark.version}_${spark.testing.version}</version>
-            <scope>test</scope>
+            <!--<scope>test</scope>-->
         </dependency>
 
     </dependencies>

@@ -54,6 +54,10 @@ case class BatchDQApp(allParam: GriffinConfig) extends DQApp {
   def init: Try[_] = Try {
     // build spark 2.0+ application context
     val conf = new SparkConf().setAppName(metricName)
+    // spark申请内存加大测试 TEST:本地测试会出现如下错误
+    // System memory 259522560 must be at least 471859200.
+    // Please increase heap size using the --driver-memory option or spark.driver.memory in Spark configuration.
+    conf.set("spark.testing.memory", "2147480000")
     conf.setAll(sparkParam.getConfig)
     conf.set("spark.sql.crossJoin.enabled", "true")
     sparkSession = SparkSession.builder().config(conf).enableHiveSupport().getOrCreate()
@@ -71,19 +75,24 @@ case class BatchDQApp(allParam: GriffinConfig) extends DQApp {
     val measureTime = getMeasureTime
     val contextId = ContextId(measureTime)
 
+    // 根据配置获取数据源 即dq对应的data.sources配置，
     // get data sources
     val dataSources = DataSourceFactory.getDataSources(sparkSession, null, dqParam.getDataSources)
+    // 数据源初始化操作
     dataSources.foreach(_.init)
 
+    // 创建griffin执行上下文
     // create dq context
     val dqContext: DQContext = DQContext(
       contextId, metricName, dataSources, sinkParams, BatchProcessType
     )(sparkSession)
 
+    // 根据对应的sink的配置，输出结果到console和elasticsearch中
     // start id
     val applicationId = sparkSession.sparkContext.applicationId
     dqContext.getSink().start(applicationId)
 
+    // 创建数据检测对比job信息
     // build job
     val dqJob = DQJobBuilder.buildDQJob(dqContext, dqParam.getEvaluateRule)
 

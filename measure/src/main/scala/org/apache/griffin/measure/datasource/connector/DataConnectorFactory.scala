@@ -59,6 +59,7 @@ object DataConnectorFactory extends Loggable {
     val conType = dcParam.getType
     val version = dcParam.getVersion
     Try {
+      // 数据源映射
       conType match {
         case HiveRegex() => HiveBatchDataConnector(sparkSession, dcParam, tmstCache)
         case AvroRegex() => AvroBatchDataConnector(sparkSession, dcParam, tmstCache)
