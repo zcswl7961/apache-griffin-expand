@@ -11,16 +11,21 @@ import scala.util.control.Breaks._
 object ScalaTest {
 
   def main(args: Array[String]): Unit = {
+    //变量定义
     var str:String = "zhoucg"
-    println(str)
+    //println(str)
+    val finalStr:String = "zhoucg"
     var t1 = 3
-    println(t1)
+    //println(t1)
     val ch:Char = 'A'
     val toInt = ch.toInt
-    println(toInt)
+    //println(toInt)
+
+    val intSum = 1+2
+
+
     val x =2
-    val test = if(x>0) 1 else -1
-    println(test)
+    //println(test)
     val x0 = 1
     val y0 = 1
     val x1 = 2
@@ -30,14 +35,16 @@ object ScalaTest {
       val dy = y1 - y0
       Math.sqrt(dx*dx+dy*dy)
     }
-    println(distance)
+   //println(distance)
 
     // 循环语句设置
     val s = "hello"
     for (i <- 0 to s.length-1) {println(s(i))}
     for (i <-1 to 10) {println(i)}
+
+
     println("================================")
-    // 跳出循环实例,break,
+    // 跳出循环实例,break,break:breanable()包住整个循环体
     breakable(
       for(i <-1 to 10){
         if(i == 5){
@@ -45,40 +52,46 @@ object ScalaTest {
         }
       }
     )
-    // 跳出循环实例，continue
+    // 跳出循环实例，continue，break：breakable包住整个判断条件
     for(j<-1 to 10) {
       breakable{
         if(j == 5) {
           break
         }
-        println(j)
+        //println(j)
       }
     }
     // 方法的定义设置数据
     // 定义格式   def 方法名 （参数列表）：返回值类型= {方法体}
     val addInt = add(1,2);
-    println(addInt)
+    //println(addInt)
     // 多参数的设置
     val multAdd = addThenMultiply(2,3)(4)
-    println(multAdd)
+    //println(multAdd)
 
     println("========================================================")
     // 初始化一个长度为9的定长数组，器所有元素均为0
     val arr1 = new Array[Int](9)
-    println(arr1)
+    //println(arr1)
     // 将数组转换成数组缓冲，就可以看到原数组中的内容了
     //println(arr1.toBuffer)//toBuffer会将数组转换长数组缓冲
 
     // 初始化一个长度为1值为9的定长数组
     val array2 = Array[Int](9)
-    println(array2.toBuffer)
+    //println(array2.toBuffer)
 
     // 使用（index）来访问元素
-    println(array2(0))
+    //println(array2(0))
 
     // 遍历数组
     for(x <-1 to(arr1.length - 1)) {
-      println(arr1(x))
+      //println(arr1(x))
+    }
+
+    val arrList = List(1,2,3,4)
+    val arrList1 = Array(1,2,3,4)
+    for(i <- arrList) {
+      //println(i)
     }
 
 
@@ -117,7 +130,7 @@ object ScalaTest {
     // 集合高级运用
     val seq = Seq(1,2,3,4,5)
     val min = seq.min
-    println(min)
+    //println(min)
 
     val max = seq.max
     //
@@ -133,7 +146,7 @@ object ScalaTest {
     // flatMap数据操作
     val list = List(1,2,3,4,5)
     val finalList = list.flatMap(n=>List(n*10,n)) //map后压平
-    println(finalList.toBuffer)
+    //println(finalList.toBuffer)
 
 
     val seqSingle:Seq[Int] = Seq(1,2,3,4,5,6)
@@ -141,11 +154,42 @@ object ScalaTest {
     val names = List("About","Box","Clear")
     val namesMap = names.map{name => upper(name)}
     val flagNameMap = names.flatMap(name1 => upper(name1))
-    println("namesMap"+namesMap)
+    //println("namesMap"+namesMap)
     val flagNameMapFull = names.flatMap{name2 => upper(name2)}
-    println("flagNameMapFull:"+flagNameMapFull)
+    //println("flagNameMapFull:"+flagNameMapFull)
 
 
+    //定义一个函数
+    val f1 = (x:Int,y:Int) => x +y;
+    //println(f1)
+    m1(f1)
+
+    val listStr = List(1,2,3,4)
+    for (i <- listStr) {
+      //println(i)
+    }
+
+    val iterable = Iterator(listStr)
+    //println(iterable.max)
+    //println(iterable.min)
+
+
+    val seq1 = Seq(1,2,3,4,5)
+    seq1.map(n => n*2)
+    listStr.map(n =>n*2)
+
+
+
+
+  }
+
+
+  def printString(args:String*) : Unit = {
+    var i:Int = 0;
+    for(arg <- args) {
+      println("Arg value[" + i + "] = " + arg)
+      i = i+1
+    }
   }
 
   def upper(str:String):String = {
@@ -170,6 +214,19 @@ object ScalaTest {
   def voidType:Unit = {
     println("这个是一个无参的函数信息");
   }
+
+  /**
+   * 定义一个方法，
+   * 方法m1参数要求是一个函数，参数的参数必须是两个Int类型
+   * 返回值类型也是一个Int类型
+   * @param f
+   * @return
+   */
+  def m1(f:(Int,Int) => Int) :Int = {
+    f(2,6)
+  }
+
+
 
 
 }
