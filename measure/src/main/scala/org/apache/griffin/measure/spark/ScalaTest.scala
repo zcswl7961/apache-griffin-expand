@@ -15,6 +15,7 @@ object ScalaTest {
     var str:String = "zhoucg"
     //println(str)
     val finalStr:String = "zhoucg"
+    //会进行类型自动判断
     var t1 = 3
     //println(t1)
     val ch:Char = 'A'
@@ -38,6 +39,7 @@ object ScalaTest {
    //println(distance)
 
     // 循环语句设置
+    // for循环的语法格式：for(i <- 表达式/数组/集合)
     val s = "hello"
     for (i <- 0 to s.length-1) {println(s(i))}
     for (i <-1 to 10) {println(i)}
@@ -61,8 +63,11 @@ object ScalaTest {
         //println(j)
       }
     }
+    // scala没有对应的return
     // 方法的定义设置数据
     // 定义格式   def 方法名 （参数列表）：返回值类型= {方法体}
+
+
     val addInt = add(1,2);
     //println(addInt)
     // 多参数的设置
@@ -81,7 +86,7 @@ object ScalaTest {
     //println(array2.toBuffer)
 
     // 使用（index）来访问元素
-    //println(array2(0))
+    // println(array2(0))
 
     // 遍历数组
     for(x <-1 to(arr1.length - 1)) {
