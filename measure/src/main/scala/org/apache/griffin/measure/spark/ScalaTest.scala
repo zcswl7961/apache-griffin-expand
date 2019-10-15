@@ -1,5 +1,7 @@
 package org.apache.griffin.measure.spark
 
+import org.apache.griffin.measure.datasource.DataSourceFactory.getDataSource
+
 import scala.collection.mutable.ArrayBuffer
 import scala.util.control.Breaks._
 
@@ -159,7 +161,7 @@ object ScalaTest {
     val names = List("About","Box","Clear")
     val namesMap = names.map{name => upper(name)}
     val flagNameMap = names.flatMap(name1 => upper(name1))
-    //println("namesMap"+namesMap)
+    //println("flagNameMap"+flagNameMap)
     val flagNameMapFull = names.flatMap{name2 => upper(name2)}
     //println("flagNameMapFull:"+flagNameMapFull)
 
@@ -182,6 +184,22 @@ object ScalaTest {
     val seq1 = Seq(1,2,3,4,5)
     seq1.map(n => n*2)
     listStr.map(n =>n*2)
+
+
+    val days = Array("Sunday", "Monday", "Tuesday", "Wednesday","Thursday", "Friday", "Saturday")
+
+
+    /**
+     * foldleft函数示例
+     */
+    val listfoldList = List(20,30,60,90)
+    //0为初始值，b表示返回结果对象（迭代值），a表示lst集合中的每个值
+    val rs = listfoldList.foldLeft(0)((b,a)=>{
+      b+a
+    })
+
+    //result
+    println(rs)
 
 
 

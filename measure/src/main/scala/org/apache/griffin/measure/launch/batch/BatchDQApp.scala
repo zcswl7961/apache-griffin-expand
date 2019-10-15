@@ -51,6 +51,10 @@ case class BatchDQApp(allParam: GriffinConfig) extends DQApp {
 
   def retryable: Boolean = false
 
+  /**
+   * SparkSession:SparkSession是spark2.0引入的新概念，SparkSession为用户提供了统一的切入点，来让用户学习spark的各项功能。
+   * @return
+   */
   def init: Try[_] = Try {
     // build spark 2.0+ application context
     val conf = new SparkConf().setAppName(metricName)

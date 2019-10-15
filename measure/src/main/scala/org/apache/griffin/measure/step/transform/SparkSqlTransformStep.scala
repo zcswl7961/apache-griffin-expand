@@ -32,6 +32,9 @@ case class SparkSqlTransformStep(name: String,
   def execute(context: DQContext): Boolean = {
     val sqlContext = context.sqlContext
     try {
+      /**
+       * SparkSql执行操作
+       */
       val df = sqlContext.sql(rule)
       if (cache) context.dataFrameCache.cacheDataFrame(name, df)
       context.runTimeTableRegister.registerTable(name, df)

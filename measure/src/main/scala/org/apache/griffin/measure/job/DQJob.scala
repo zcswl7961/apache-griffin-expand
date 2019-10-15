@@ -24,6 +24,8 @@ import org.apache.griffin.measure.step.DQStep
 case class DQJob(dqSteps: Seq[DQStep]) extends Serializable {
 
   /**
+   *  https://blog.csdn.net/qq_29677083/article/details/84436462
+    * def foldLeft[B](z:B)(op:(B,A) => B) :B = {}
     * @return execution success
     */
   def execute(context: DQContext): Boolean = {

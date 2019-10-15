@@ -48,6 +48,33 @@ object Application extends Loggable {
       "\"api\":\"http://192.168.239.171:9200/griffin/accuracy\",\n        \"connection" +
       ".timeout\":\"1m\",\n        \"retry\":10\n      }\n    }\n  ],\n  \"griffin" +
       ".checkpoint\":[\n\n  ]\n}";
+//    args(1) = "{\n    \"measure.type\":\"griffin\",\n    \"id\":3355,\n    " +
+//      "\"name\":\"schedule-job-zcg\",\n    \"owner\":\"test\",\n    \"description\":\"test\",\n  " +
+//      "  \"deleted\":false,\n    \"timestamp\":1569492180000,\n    \"dq.type\":\"ACCURACY\",\n   " +
+//      " \"sinks\":[\n        \"ELASTICSEARCH\",\n        \"HDFS\"\n    ],\n    \"process" +
+//      ".type\":\"BATCH\",\n    \"data.sources\":[\n        {\n            \"id\":3358,\n         " +
+//      "   \"name\":\"source\",\n            \"connectors\":[\n                {\n                " +
+//      "    \"id\":3359,\n                    \"name\":\"source1569548839003\",\n                 " +
+//      "   \"type\":\"HIVE\",\n                    \"version\":\"1.2\",\n                    " +
+//      "\"predicates\":[\n\n                    ],\n                    \"data.unit\":\"1day\",\n " +
+//      "                   \"data.time.zone\":\"\",\n                    \"config\":{\n           " +
+//      "             \"database\":\"griffin_demo\",\n                        \"table" +
+//      ".name\":\"demo_src\",\n                        \"where\":\"dt='20190927' AND hour = " +
+//      "'09'\"\n                    }\n                }\n            ],\n            " +
+//      "\"baseline\":false\n        },\n        {\n            \"id\":3360,\n            " +
+//      "\"name\":\"target\",\n            \"connectors\":[\n                {\n                   " +
+//      " \"id\":3361,\n                    \"name\":\"target1569548846717\",\n                    " +
+//      "\"type\":\"HIVE\",\n                    \"version\":\"1.2\",\n                    " +
+//      "\"predicates\":[\n\n                    ],\n                    \"data.unit\":\"1day\",\n " +
+//      "                   \"data.time.zone\":\"\",\n                    \"config\":{\n           " +
+//      "             \"database\":\"griffin_demo\",\n                        \"table" +
+//      ".name\":\"demo_tgt\",\n                        \"where\":\"dt='20190927' AND hour = " +
+//      "'09'\"\n                    }\n                }\n            ],\n            " +
+//      "\"baseline\":false\n        }\n    ],\n    \"evaluate.rule\":{\n        \"id\":3356,\n    " +
+//      "    \"rules\":[\n            {\n                \"id\":3357,\n                " +
+//      "\"rule\":\"source.id=target.id\",\n                \"dsl.type\":\"griffin-dsl\",\n        " +
+//      "        \"dq.type\":\"ACCURACY\",\n                \"out.dataframe.name\":\"accuracy\"\n  " +
+//      "          }\n        ]\n    }\n}";
     args(1) = "{\n  \"name\":\"accu_batch\",\n  \"process.type\":\"batch\",\n  \"data" +
       ".sources\":[\n    {\n      \"name\":\"source\",\n      \"baseline\":true,\n      " +
       "\"connectors\":[\n        {\n          \"type\":\"avro\",\n          \"version\":\"1.7\"," +

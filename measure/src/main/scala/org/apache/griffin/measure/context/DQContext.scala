@@ -26,6 +26,7 @@ import org.apache.griffin.measure.datasource._
 import org.apache.griffin.measure.sink.{Sink, SinkFactory}
 
 /**
+ *  每一个spark计算的context唯一的上下文对象数据
   * dq context: the context of each calculation
   * unique context id in each calculation
   * access the same spark session this app created
@@ -39,7 +40,9 @@ case class DQContext(contextId: ContextId,
 
   val sqlContext: SQLContext = sparkSession.sqlContext
 
+  //编译
   val compileTableRegister: CompileTableRegister = CompileTableRegister()
+  //运行环境
   val runTimeTableRegister: RunTimeTableRegister = RunTimeTableRegister(sqlContext)
 
   val dataFrameCache: DataFrameCache = DataFrameCache()
@@ -47,6 +50,7 @@ case class DQContext(contextId: ContextId,
   val metricWrapper: MetricWrapper = MetricWrapper(name)
   val writeMode = WriteMode.defaultMode(procType)
 
+  //数据源名称
   val dataSourceNames: Seq[String] = {
     // sort data source names, put baseline data source name to the head
     val (blOpt, others) = dataSources.foldLeft((None: Option[String], Nil: Seq[String])) { (ret, ds) =>
@@ -67,6 +71,7 @@ case class DQContext(contextId: ContextId,
   implicit val encoder = Encoders.STRING
   val functionNames: Seq[String] = sparkSession.catalog.listFunctions.map(_.name).collect.toSeq
 
+  //加载数据
   val dataSourceTimeRanges = loadDataSources()
 
   def loadDataSources(): Map[String, TimeRange] = {

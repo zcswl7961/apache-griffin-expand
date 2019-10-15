@@ -4,7 +4,7 @@ import java.util.Properties
 
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.types.{IntegerType, StringType, StructField, StructType}
-import org.apache.spark.sql.{DataFrame, Row, SQLContext}
+import org.apache.spark.sql.{DataFrame, Row, SQLContext, SparkSession}
 import org.apache.spark.{SparkConf, SparkContext}
 
 /**
@@ -36,8 +36,17 @@ object SparkSqlTest {
 
     val conf = new SparkConf().setAppName("SparkSession").setMaster("local")
     conf.set("spark.testing.memory", "2147480000")
-    val sc = new SparkContext(conf)
-    val context = new SQLContext(sc)
+    //val sc = new SparkContext(conf)
+    //val context = new SQLContext(sc)
+
+    // 适用sparksession进行创建对应的sparkContext和对应的sqlContext
+    val sparkSession = SparkSession.builder().config(conf).enableHiveSupport().getOrCreate()
+    sparkSession.sparkContext.setLogLevel("WARN")
+    val sqlContext = sparkSession.sqlContext
+
+    val sc = sparkSession.sparkContext
+    val context = sparkSession.sqlContext
+
 //    joinDataFram(sc,context)
     mysqldataFrameRead(sc,context)
 
@@ -123,7 +132,7 @@ object SparkSqlTest {
    */
   def mysqldataFrameRead(sc:SparkContext,context:SQLContext): Unit = {
 
-    val url = "jdbc:mysql://192.168.123.102:3306/test"
+    val url = "jdbc:mysql://127.0.0.1:3306/test"
     val table = "users"
     val properties = new Properties()
     properties.setProperty("user","root")
